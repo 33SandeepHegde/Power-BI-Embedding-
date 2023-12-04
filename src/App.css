@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.reportClass{
+  width: 1000px;
+  height: 80vh;
+}
+
+.reportClass iframe{
+  border: none;
+}
