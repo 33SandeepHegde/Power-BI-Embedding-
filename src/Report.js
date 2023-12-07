@@ -8,10 +8,18 @@ const Report = () => {
     useEffect(() => {
       axios.get('http://localhost:5200/getaadtoken').then(respose=>{
           setAadToken(respose.data.access_token);
-        })
-
+        }).catch((err)=>{
+			console.log(err);
+		})
+		const intervalId = setInterval(() => {
+			axios.get('http://localhost:5200/getaadtoken').then(respose=>{
+          setAadToken(respose.data.access_token);
+        }).catch((err)=>{
+			console.log(err);
+		})
+			}, 1200000);
+		  return () => clearInterval(intervalId);
       }, []);
-      // console.log(aadToken);
   return (
     <div>
         <h3>Wow ,Report !</h3>
@@ -19,8 +27,8 @@ const Report = () => {
 			<PowerBIEmbed
 			embedConfig = {{
 				type: 'report',   // Supported types: report, dashboard, tile, visual, qna, paginated report and create
-				id: 'REPORT_ID',
-				embedUrl: 'YOUR_REPORT_EMBED_URL',
+				id: 'REPLACE_YOUR_REPORT_ID',
+				embedUrl: 'REPLACE_YOUR_REPORT_EMBED_URL',
 				accessToken: aadToken,
 				tokenType: models.TokenType.Aad, // Use models.TokenType.Aad for SaaS embed
 				settings: {
